@@ -5,7 +5,6 @@ var title = document.querySelector(".poster-title");
 var quote = document.querySelector(".poster-quote");
 var currentPoster = document.querySelector(".poster");
 var userPoster = document.querySelector(".show-form");
-
 var posterForm = document.querySelector(".poster-form");
 var mainPoster = document.querySelector(".main-poster");
 var customPoster = document.querySelector(".make-poster");
@@ -13,6 +12,9 @@ var savedPoster = document.querySelector(".show-saved");
 var savePosterButton = document.querySelector(".save-poster");
 var savedPostersForm = document.querySelector(".saved-posters");
 var showMainButton = document.querySelector(".show-main");
+var backToMainButton = document.querySelector(".back-to-main")
+var miniPoster = document.querySelector(".saved-posters-grid");
+
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -123,13 +125,17 @@ addEventListener("load", createRandomPoster);
 
 userPoster.addEventListener('click', changeView)
 
-savedPoster.addEventListener('click', showSavedPosters)
-
 showMainButton.addEventListener('click', showMainPage)
 
 backToMainButton.addEventListener('click', showMainPage)
 
+savePosterButton.addEventListener('click', savePoster)
 
+savedPoster.addEventListener('click', function(event){
+  event.preventDefault()
+  showSavedPosters()
+  displayMiniPoster();
+})
 
 customPoster.addEventListener('click', function(event){
   event.preventDefault();
@@ -199,11 +205,43 @@ function displayUserPoster(imageURL, title, quote) {
   createPoster(imageURL, title, quote);
 }
 
-
 function sortCustomPosterItems(customImg, customTitle, customQuote){
-
   images.push(customImg);
   titles.push(customTitle);
   quotes.push(customQuote);
+}
 
+function savePoster() {
+  var savedPoster = {
+    id: Date.now(),
+    image: image,
+    title: title, 
+    quote: quote
+  };
+
+  var isDuplicate = false;
+
+  for (var i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i].id === savedPoster.id) {
+    isDuplicate = true;
+    }
+  }
+
+  if (!isDuplicate){
+    savedPosters.push(savedPoster)
+  }
+}
+  
+function displayMiniPoster() {
+  miniPoster.innerHTML = ''
+  savedPosters.forEach(function(poster) {
+    var posterHTML = `
+    <div>
+    <img class="poster-img" src="${poster.image}" alt="nothin' to see here">
+    <h1 class="poster-title">${poster.title}</h1>
+    <h3 class="poster-quote">${poster.quote}</h3>
+    </div>
+    `
+    miniPoster.HTML += posterHTML
+  })
 }
