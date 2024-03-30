@@ -1,6 +1,5 @@
-//Query Selectors
+// query selector variables
 var randomPosterButton = document.querySelector(".show-random");
-
 var posterImage = document.querySelector(".poster-img");
 var posterTitle = document.querySelector(".poster-title");
 var posterQuote = document.querySelector(".poster-quote");
@@ -18,8 +17,7 @@ var miniPoster = document.querySelector('.saved-posters-grid');
 
 
 
-
-// Arrays
+// Arrays 
 var images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -78,7 +76,7 @@ var titles = [
   "wisdom"
 ];
 var quotes = [
-  "Don’t downgrade your dream just to fit your reality, upgrade your conviction to match your destiny.",
+  "Don't downgrade your dream just to fit your reality, upgrade your conviction to match your destiny.",
   "You are braver than you believe, stronger than you seem and smarter than you think.",
   "You are confined only by the walls you build yourself.",
   "The one who has confidence gains the confidence of others.",
@@ -105,7 +103,7 @@ var quotes = [
   "It is never too late to be what you might have been.",
   "Happiness often sneaks in through a door you didn't know you left open.",
   "We must be willing to let go of the life we planned so as to have the life that is waiting for us.",
-  "Never limit yourself because of others’ limited imagination; never limit others because of your own limited imagination.",
+  "Never limit yourself because of others' limited imagination; never limit others because of your own limited imagination.",
   "Be the change that you wish to see in the world.",
   "Let us make our future now, and let us make our dreams tomorrow's reality.",
   "You don't always need a plan. Sometimes you just need to breathe, trust, let go, and see what happens.",
@@ -121,32 +119,35 @@ var savedPosters = [];
 var newPoster;
 
 
-
-//Event Listeners
+// event listeners 
 randomPosterButton.addEventListener('click', createRandomPoster);
 addEventListener("load", createRandomPoster);
 
-userPoster.addEventListener('click', changeView)
+userPoster.addEventListener('click', function(event){
+  event.preventDefault();
+  toggleViews(false, true, false)
+})
 
 savedPoster.addEventListener('click', function(event){
   event.preventDefault()
-showSavedPosters()
+toggleViews(false, false, true)
 displayMiniPoster();
 })
 
 showMainButton.addEventListener('click', function(event){
   event.preventDefault()
-  showMainPage()
+  toggleViews(true, false, false)
 })
 
-backToMainButton.addEventListener('click', showMainPage)
+backToMainButton.addEventListener('click', function(event){
+  event.preventDefault();
+  toggleViews(true, false, false)
+})
 
 savePosterButton.addEventListener('click', function(event){
   event.preventDefault();
-
   savePoster(newPoster.imageURL, newPoster.title,  newPoster.quote);
 });
-
 
 
 customPoster.addEventListener('click', function(event){
@@ -155,7 +156,7 @@ var userImage = document.querySelector('#poster-image-url').value;
 var userTitle = document.querySelector('#poster-title').value;
 var userQuote = document.querySelector('#poster-quote').value;
 sortCustomPosterItems(userImage, userTitle, userQuote)
-showMainPage()
+toggleViews(true, false, false)
 displayUserPoster(userImage, userTitle, userQuote);
 
 document.querySelector('#poster-image-url').value = '';
@@ -163,11 +164,15 @@ document.querySelector('#poster-title').value = '';
 document.querySelector('#poster-quote').value = '';
 });
 
-// Functions
+miniPoster.addEventListener('click', function(event){
+  event.preventDefault();
+  deletePoster(event)
+})
+
+// functions and event handlers 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
-
 
 function createPoster(image, title, quote) {
   var poster =  {
@@ -180,15 +185,12 @@ function createPoster(image, title, quote) {
 }
 
 function createRandomPoster(){
-
   newPoster = createPoster(images[getRandomIndex(images)], titles[getRandomIndex(titles)], quotes[getRandomIndex(quotes)]);
-  
   currentPoster.innerHTML = 
   `<img class="poster-img" src="${newPoster.imageURL}" alt="nothin' to see here">
   <h1 class="poster-title">"${newPoster.title}"</h1>
   <h3 class="poster-quote">"${newPoster.quote}"</h3>`
 }
-
 
 function displayUserPoster(imageURL, title, quote) {
   currentPoster.innerHTML = 
@@ -201,53 +203,32 @@ function displayUserPoster(imageURL, title, quote) {
 
 function displayMiniPoster() {
   for(var i = 0; i < savedPosters.length; i++){
-    
-  var savedPosterElement = document.createElement('div');
-  savedPosterElement.classList.add('mini-poster');
+    var savedPosterElement = document.createElement('div');
+    savedPosterElement.classList.add('mini-poster');
+    savedPosterElement.dataset.id = savedPosters[i].id;
+    savedPosterElement.innerHTML = `
+              <img class="poster-img" src="${savedPosters[i].image}" alt="Poster Image">
+              <h2 class="poster-title">"${savedPosters[i].title}"</h2>
+              <h4 class="poster-quote">"${savedPosters[i].quote}"</h4>
+      `;
 
-  savedPosterElement.innerHTML = `
-            <img class="poster-img" src="${savedPosters[i].image}" alt="Poster Image">
-            <h2 class="poster-title">"${savedPosters[i].title}"</h2>
-            <h4 class="poster-quote">"${savedPosters[i].quote}"</h4>
-    `;
-
-    miniPoster.appendChild(savedPosterElement);
+      miniPoster.appendChild(savedPosterElement);
+  }
+ }
+ function toggleViews(showMain, showForm, showSaved) {
+  mainPoster.classList.toggle('hidden', !showMain);
+   
+  posterForm.classList.toggle('hidden', !showForm);
+   
+  savedPostersForm.classList.toggle('hidden', !showSaved);
+   
+  if (showSaved) {
+     miniPoster.innerHTML = '';
   }
  }
 
-function changeView() {
-  posterForm.classList.remove('hidden')
-  mainPoster.classList.add('hidden')
-}
-
-function showSavedPosters() {
-  savedPostersForm.classList.remove('hidden')
-  posterForm.classList.add('hidden')
-  mainPoster.classList.add('hidden')
-
-  miniPoster.innerHTML = '';
-
-  
-}
-
-
-function showMainPage() {
-mainPoster.classList.remove('hidden')
-posterForm.classList.add('hidden')
-savedPostersForm.classList.add('hidden')
-}
-
-function displayUserPoster(imageURL, title, quote) {
-  currentPoster.innerHTML = 
-  `<img class="poster-img" src="${imageURL}" alt="nothin' to see here">
-  <h1 class="poster-title">"${title}"</h1>
-  <h3 class="poster-quote">"${quote}"</h3>`
-  
-  newPoster = createPoster(imageURL, title, quote);
-}
-
-
 function sortCustomPosterItems(customImg, customTitle, customQuote){
+
   images.push(customImg);
   titles.push(customTitle);
   quotes.push(customQuote);
@@ -260,6 +241,7 @@ function savePoster(image, title, quote) {
     title: title,
     quote: quote
   };
+
   miniPoster.innerHTML = '';
 
   var isDuplicate = savedPosters.some(function(existingPoster) { 
@@ -271,7 +253,18 @@ function savePoster(image, title, quote) {
   if (!isDuplicate) {
     savedPosters.push(savedPoster);
     displayMiniPoster()
-    }
   }
 }
 
+function deletePoster(event) {
+  if (event.detail === 2) {
+    var activePoster = event.target.closest('.mini-poster');
+    var miniPosterId = parseInt(activePoster.dataset.id);
+
+    activePoster.remove();
+
+    savedPosters = savedPosters.filter(function(poster) {
+      return poster.id !== miniPosterId;
+    });
+  }
+}
