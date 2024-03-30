@@ -1,46 +1,41 @@
-# Hang In There
-
-A boilerplate repo. 
-
-## Set Up
-
-1. One teammate: fork this repository
-2. Clone down your new, forked repo
-3. cd into the repository
-4. Open it in your text editor
-5. Add all project partners and your assigned instructor as collaborators on the repository
-
-Project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-1/hang-in-there-v2.html)
-
-To view your project:
-
-1. In your terminal, navigate to your project repo
-2. Run the command `open index.html`
-  
-______________________________________________________  
-# README Template  
-Before turning this project in, erase this line and everything above it and fill in the info below.  
-______________________________________________________  
-
-# Hang in There  
+ # Hang in There  
 
 ### Abstract:
-[//]: <> (Briefly describe what you built and its features. What problem is the app solving? How does this application solve that problem?)
+This application allows the user to be able to create random posters from the click of a button. The user is also able to create their own custom posters if they'd like by adding their own image URLs, titles, and quotes. The user can also save any of the random created posters or their custom posters. The application is solving the problem of not having the same boring posters. 
 
 ### Installation Instructions:
-[//]: <> (What steps does a person have to take to get your app cloned down and running?)
 
+1. You can go to the following link: https://github.com/KyleMBoomer/hang-in-there
+2. Click on "Fork"
+3. Click on "Code" and then copy the SSH key or HTTPS link onto your clipboard 
+4. In your terminal type "git clone" and paste the key after the command 
+5. After cloned down inside your terminal input "open index.html" and you will be on the app. 
 ### Preview of App:
 [//]: <> (Provide ONE gif or screenshot of your application - choose the "coolest" piece of functionality to show off.)
 
 ### Context:
-[//]: <> (Give some context for the project here. How long did you have to work on it? How far into the Turing program are you?)
-
+It took us about 8 hours to complete the entire application. We are both Mod1 repeaters so completing this came a little bit more naturally for us after having a similar project beforehand. 
 ### Contributors:
-[//]: <> (Who worked on this application? Link to their GitHubs.)
+Kyle Boomer
+https://github.com/KyleMBoomer
+Jordan Williamson
+https://github.com/JWill06
 
 ### Learning Goals:
-[//]: <> (What were the learning goals of this project? What tech did you work with?)
+The learning goals of this project were to understand and implement event listeners, query selectors, and to be able to access and manipulate the DOM.  
 
-### Wins + Challenges:
-[//]: <> (What are 2-3 wins you have from this project? What were some challenges you faced - and how did you get over them?)
+
+### Wins
+1. We learned what and how to use the ParseInt method!
+2. When we got stuck one of our mentors helped fix an issue after we reached out for help. 
+3. We better understood our code in this project and is cleaner this time as well. 
+
+#### Challenges
+1. We got stuck on removing elements from our data model when we had success removing them from the DOM. We researched the parseInt method and altered what we had to work with it.
+2. We got stuck with properly displaying the correct interpolated properties of objects produced by our event listeners. We reached out to a mentor and found out that what we originally had wasn't defined and that we were inputing the wrong elements from the DOM. 
+
+
+
+
+
+
