@@ -1,5 +1,3 @@
-<img width="1680" alt="Screenshot 2024-04-01 at 2 45 04 PM" src="https://github.com/KyleMBoomer/hang-in-there/assets/156006806/c3dff24d-07af-4032-8b43-3ed47b92c77b"> # Hang in There  
-
 ### Abstract:
 This application allows the user to be able to create random posters from the click of a button. The user is also able to create their own custom posters if they'd like by adding their own image URLs, titles, and quotes. The user can also save any of the random created posters or their custom posters. The application is solving the problem of not having the same boring posters. 
 
